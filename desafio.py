@@ -91,8 +91,10 @@ c1 = Carro("Volkswagen", "Gol", 2002, motor_padrao, roda_padrao, 4)
 c2 = Carro("Chevrolet", "Onix", 2024, motor_padrao, roda_padrao, 4)
 c3 = Carro("Toyotta", "Corolla", 2022, motor_padrao, roda_padrao, 4)
 
-lista = [c1,c2,c3]
+#Iterando um lista de carros
 
-for carro in lista:
+lista_de_carros = [c1,c2,c3]
+
+for carro in lista_de_carros:
     carro.exibir_info()
-    print("\n")
+    print("---------------------------------------------------")
