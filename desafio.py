@@ -1,15 +1,19 @@
 import time
 
 class Carro:
-    def __init__(self, marca, modelo, ano, ligado=False):
+    def __init__(self, marca, modelo, ano, motor, roda, quantidade_rodas, ligado=False):
         self.marca = marca
         self._modelo = modelo
         self.__ano = ano
         self.ligado = ligado
+        self.motor = motor
+        self.roda = roda
+        self.quantidade_rodas = quantidade_rodas
 
     def exibir_info(self):
         estado = "Ligado" if self.ligado else "Desligado"
-        print(f"Carro: {self.marca}, Modelo: {self.modelo}, Estado: {estado}")
+        print(f"Carro: {self.marca}, Modelo: {self.modelo}, Estado: {estado}\nMotor-> {self.motor.exibir_info()}")
+        print(f"Rodas: {self.quantidade_rodas}x {self.roda.exibir_info()}")
 
     def ligar(self):
         if self.ligado:
@@ -65,12 +69,30 @@ class CarroEletrico(Carro):
         super().exibir_info()
         print(f"Autonomia: {self.autonomia} horas")
 
-c1 = Carro("Volkswagen", "Gol", 2002)
-c1.exibir_info()
+class Motor:
+    def __init__(self, potencia):
+        self.potencia = potencia
 
-esportivo = CarroEsportivo("Ferrari", "F8", 2023,True, True)
+    def exibir_info(self):
+        return f"Potencia: {self.potencia}cv"
 
-eletrico = CarroEletrico("Tesla", "Model S", 2022, 20)
+class Roda:
+    def __init__(self, tamanho, tipo):
+        self.tamanho = tamanho
+        self.tipo = tipo
 
-esportivo.exibir_info()
-eletrico.exibir_info()
+    def exibir_info(self):
+        return f"{self.tamanho}, {self.tipo}"
+
+motor_padrao = Motor(150)
+roda_padrao = Roda("16 Polegadas", "Liga leve")
+
+c1 = Carro("Volkswagen", "Gol", 2002, motor_padrao, roda_padrao, 4)
+c2 = Carro("Chevrolet", "Onix", 2024, motor_padrao, roda_padrao, 4)
+c3 = Carro("Toyotta", "Corolla", 2022, motor_padrao, roda_padrao, 4)
+
+lista = [c1,c2,c3]
+
+for carro in lista:
+    carro.exibir_info()
+    print("\n")
