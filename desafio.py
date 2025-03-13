@@ -1,4 +1,4 @@
-import time
+from abc import ABC
 
 class Carro:
     def __init__(self, marca, modelo, ano, motor, roda, quantidade_rodas, ligado=False):
@@ -14,6 +14,19 @@ class Carro:
         estado = "Ligado" if self.ligado else "Desligado"
         print(f"Carro: {self.marca}, Modelo: {self.modelo}, Estado: {estado}\nMotor-> {self.motor.exibir_info()}")
         print(f"Rodas: {self.quantidade_rodas}x {self.roda.exibir_info()}")
+
+    def __str__(self):
+        estado = "Ligado" if self.ligado else "Desligado"
+        return (f"Carro: {self.marca}, Modelo: {self.modelo}, Ano: {self.__ano}, Estado: {estado}\n"
+                f"Motor -> {self.motor.exibir_info()}\n"
+                f"Rodas: {self.quantidade_rodas}x {self.roda.exibir_info()}")
+
+    def __eq__(self, outro):
+        if isinstance(outro, Carro):
+            return (self.marca == outro.marca and
+                    self.modelo == outro.modelo and
+                    self.__ano == outro.__ano)
+        return False
 
     def ligar(self):
         if self.ligado:
@@ -56,6 +69,10 @@ class CarroEsportivo(Carro):
         super().__init__(marca, modelo, ano, ligado=False)
         self.turbo = turbo
 
+    def __str__(self):
+        super().exibir_info()
+        print(f"Turbo: {"Sim" if self.turbo else "Não"}")
+
     def exibir_info(self):
         super().exibir_info()
         print(f"Turbo: {"Sim" if self.turbo else "Não"}")
@@ -90,6 +107,7 @@ roda_padrao = Roda("16 Polegadas", "Liga leve")
 c1 = Carro("Volkswagen", "Gol", 2002, motor_padrao, roda_padrao, 4)
 c2 = Carro("Chevrolet", "Onix", 2024, motor_padrao, roda_padrao, 4)
 c3 = Carro("Toyotta", "Corolla", 2022, motor_padrao, roda_padrao, 4)
+c4 = Carro("Volkswagen", "Gol", 2002, motor_padrao, roda_padrao, 4)
 
 #Iterando um lista de carros
 
@@ -98,3 +116,10 @@ lista_de_carros = [c1,c2,c3]
 for carro in lista_de_carros:
     carro.exibir_info()
     print("---------------------------------------------------")
+
+print(f"Teste str\n{c1}")
+
+# Teste __eq__
+
+print(c1 == c2)
+print(c1 == c4)
